@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import training.weather.service.WeatherForecastService;
 
+import java.util.Optional;
+
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
