@@ -14,24 +14,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import training.weather.service.DateService;
 
 public class WeatherForecast {
+	private DateService dateService = new DateService();
 
 	public String getCityWeather(String city, Date datetime) throws IOException {
-		return getCityWeather(city, dateToLocalDateTime(datetime));
-	}
-
-	private LocalDate dateToLocalDateTime(Date datetime) {
-		return Instant.ofEpochMilli(datetime.getTime())
-			.atZone(ZoneId.systemDefault())
-			.toLocalDate();
+		return getCityWeather(city, dateService.dateToLocalDateTime(datetime));
 	}
 
 	public String getCityWeather(String city, LocalDate datetime) throws IOException {
 		if (datetime == null) {
 			datetime = LocalDate.now();
 		}
-		if (isBefore(datetime)) {
+		if (dateService.isBefore(datetime)) {
 			HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
 			HttpRequest request = requestFactory
 				.buildGetRequest(new GenericUrl("https://www.metaweather.com/api/location/search/?query=" + city));
@@ -51,9 +47,5 @@ public class WeatherForecast {
 			}
 		}
 		return "";
-	}
-
-	protected boolean isBefore(LocalDate datetime) {
-		return datetime.isBefore(LocalDate.now().plusDays(7));
 	}
 }
