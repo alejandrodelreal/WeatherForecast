@@ -2,6 +2,7 @@ package training.weather.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public class WeatherForecastService {
   private DateService dateService = new DateService();
   private WeatherService weatherService = new WeatherService();
 
-  public Optional<String> getCityWeather(String city, int days) {
+  public Optional<String> getCityWeather(@NonNull String city, @NonNull Integer days) {
     return getCityWeather(city, LocalDate.now().plusDays(days));
   }
 
