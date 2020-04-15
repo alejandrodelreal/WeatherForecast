@@ -26,3 +26,8 @@ Finalmente se debería incluir un fichero README explicando cómo ejecutar el ej
 # Solución
 
 La solución se puede subir a un repositorio de código público como [github](https://github.com/) ó se puede comprimir en un fichero .zip y enviar por email.
+
+# Explicación
+
+1. Empiezo extrayendo la condición before para poder establecer los tests apropiados (casos límite, en este caso dias 6 y 7) y poder refactorizar sin miedo a romper algo que funcionase antes de refactorizar.
+2. 
