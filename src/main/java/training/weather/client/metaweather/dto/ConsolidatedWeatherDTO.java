@@ -1,5 +1,6 @@
 package training.weather.client.metaweather.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -13,14 +14,22 @@ import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class ConsolidatedWeatherDTO {
-  @NotNull(message = "weather_state_name is required field")
-  @JsonProperty(value = "weather_state_name", required = true)
-  private String weatherStateName;
+public final class ConsolidatedWeatherDTO {
+  private final String weatherStateName;
+  private final LocalDate applicableDate;
 
-  @NotNull(message = "applicable_date is required field")
-  @JsonProperty(value = "applicable_date", required = true)
-  @JsonSerialize(using = LocalDateSerializer.class)
-  @JsonDeserialize(using = LocalDateDeserializer.class)
-  private LocalDate applicableDate;
+  @JsonCreator
+  public ConsolidatedWeatherDTO(
+    @JsonProperty(value = "weather_state_name", required = true)
+    @NotNull(message = "weather_state_name is required field")
+    final String weatherStateName,
+
+    @JsonProperty(value = "applicable_date", required = true)
+    @NotNull(message = "applicable_date is required field")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    final LocalDate applicableDate) {
+    this.weatherStateName = weatherStateName;
+    this.applicableDate = applicableDate;
+  }
 }

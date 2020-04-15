@@ -2,6 +2,7 @@ package training.weather.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import training.weather.client.metaweather.MetaWeatherClient;
 import training.weather.client.metaweather.dto.ConsolidatedWeatherDTO;
@@ -11,9 +12,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 public class WeatherService {
   private MetaWeatherClient client = new MetaWeatherClient();
 
@@ -25,6 +28,7 @@ public class WeatherService {
       }
       return Optional.empty();
     } catch (IOException e) {
+      log.error("in getLocationQueryingCity", e);
       return Optional.empty();
     }
   }
@@ -35,9 +39,14 @@ public class WeatherService {
       Optional<ConsolidatedWeatherDTO> first = weatherList.stream()
         .filter(weather -> datetime.isEqual(weather.getApplicableDate()))
         .findFirst();
-      return Optional.of(first.orElseGet(ConsolidatedWeatherDTO::new).getWeatherStateName());
+      return Optional.of(first.orElseGet(emptyConsolidatedWeather()).getWeatherStateName());
     } catch (IOException e) {
+      log.error("in getLocationByCityId", e);
       return Optional.empty();
     }
+  }
+
+  private Supplier<ConsolidatedWeatherDTO> emptyConsolidatedWeather() {
+    return () -> new ConsolidatedWeatherDTO("", null);
   }
 }

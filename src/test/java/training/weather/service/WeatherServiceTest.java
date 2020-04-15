@@ -52,8 +52,7 @@ public class WeatherServiceTest {
     new Expectations() {
       {
         metaWeatherClient.getLocationQueryingCity(anyString);
-        LocationDTO locationDTO = new LocationDTO();
-        locationDTO.setWoeid(123);
+        LocationDTO locationDTO = new LocationDTO(123);
         result = locationDTO;
       }
     };
@@ -69,8 +68,7 @@ public class WeatherServiceTest {
     new Expectations() {
       {
         metaWeatherClient.getLocationByCityId(anyInt);
-        ConsolidatedLocationDTO locationDTO = new ConsolidatedLocationDTO();
-        locationDTO.setConsolidatedWeather(mockedWeatherList());
+        ConsolidatedLocationDTO locationDTO = new ConsolidatedLocationDTO(mockedWeatherList());
         result = locationDTO;
       }
     };
@@ -98,19 +96,22 @@ public class WeatherServiceTest {
   private List<ConsolidatedWeatherDTO> mockedWeatherList() {
     List<ConsolidatedWeatherDTO> result = new ArrayList<>();
 
-    ConsolidatedWeatherDTO cwTomorrow = new ConsolidatedWeatherDTO();
-    cwTomorrow.setApplicableDate(LocalDate.now().plusDays(1));
-    cwTomorrow.setWeatherStateName("Raining");
+    ConsolidatedWeatherDTO cwTomorrow = new ConsolidatedWeatherDTO(
+      "Raining",
+      LocalDate.now().plusDays(1)
+    );
     result.add(cwTomorrow);
 
-    ConsolidatedWeatherDTO cwToday = new ConsolidatedWeatherDTO();
-    cwToday.setApplicableDate(LocalDate.now());
-    cwToday.setWeatherStateName("Cloudy");
+    ConsolidatedWeatherDTO cwToday = new ConsolidatedWeatherDTO(
+      "Cloudy",
+      LocalDate.now()
+    );
     result.add(cwToday);
 
-    ConsolidatedWeatherDTO cwYesterday = new ConsolidatedWeatherDTO();
-    cwYesterday.setApplicableDate(LocalDate.now().minusDays(1));
-    cwYesterday.setWeatherStateName("Sunny");
+    ConsolidatedWeatherDTO cwYesterday = new ConsolidatedWeatherDTO(
+      "Sunny",
+      LocalDate.now().minusDays(1)
+    );
     result.add(cwYesterday);
 
     return result;

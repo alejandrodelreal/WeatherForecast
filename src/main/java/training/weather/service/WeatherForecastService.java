@@ -12,6 +12,10 @@ public class WeatherForecastService {
   private DateService dateService = new DateService();
   private WeatherService weatherService = new WeatherService();
 
+  public String getCityWeather(String city, int days) {
+    return getCityWeather(city, LocalDate.now().plusDays(days));
+  }
+
   public String getCityWeather(String city, LocalDate datetime) {
     if (datetime == null) {
       datetime = LocalDate.now();
