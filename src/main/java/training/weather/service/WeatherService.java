@@ -1,11 +1,10 @@
 package training.weather.service;
 
-import training.weather.client.MetaWeatherClient;
-import training.weather.client.dto.ConsolidatedWeatherDTO;
+import training.weather.client.metaweather.MetaWeatherClient;
+import training.weather.client.metaweather.dto.ConsolidatedWeatherDTO;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +25,7 @@ public class WeatherService {
       Optional<ConsolidatedWeatherDTO> first = weatherList.stream()
         .filter(weather -> datetime.isEqual(weather.getApplicableDate()))
         .findFirst();
-      return Optional.of(first.orElseGet(() -> new ConsolidatedWeatherDTO()).getWeatherStateName());
+      return Optional.of(first.orElseGet(ConsolidatedWeatherDTO::new).getWeatherStateName());
     } catch (IOException e) {
       return Optional.empty();
     }

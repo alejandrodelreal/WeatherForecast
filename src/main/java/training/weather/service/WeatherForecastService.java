@@ -1,12 +1,14 @@
-package training.weather;
+package training.weather.service;
 
-import training.weather.service.DateService;
-import training.weather.service.WeatherService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-public class WeatherForecast {
+@NoArgsConstructor
+@AllArgsConstructor
+public class WeatherForecastService {
   private DateService dateService = new DateService();
   private WeatherService weatherService = new WeatherService();
 
@@ -16,7 +18,7 @@ public class WeatherForecast {
     }
     if (dateService.isBefore(datetime)) {
       Optional<Integer> cityId = weatherService.getWoeid(city);
-      Optional<String> weatherStateName = weatherService.getWeatherStateName(cityId.get(), datetime);
+      Optional<String> weatherStateName = weatherService.getWeatherStateName(cityId.orElse(-1), datetime);
       return weatherStateName.orElse("");
     }
     return "";
