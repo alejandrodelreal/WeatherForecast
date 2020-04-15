@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import training.weather.service.WeatherForecastService;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @RestController
 @RequestMapping(
   path = "/forecast"
@@ -29,7 +31,8 @@ public class WeatherForecastController {
 
   @ApiOperation(tags = {"WeatherForecast"}, value = "getCityWeather", notes = "Returns the forecasted weather of a city", response = String.class)
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "OK")
+    @ApiResponse(code = 200, message = "OK"),
+    @ApiResponse(code = 404, message = "Not Found")
   })
   @GetMapping(value = "cityWeather")
   public ResponseEntity<String> getCityWeather(
@@ -39,6 +42,8 @@ public class WeatherForecastController {
     @RequestParam(value = "days", required = true)
     @ApiParam(value = "number of days from now", example = "1")
       int days) {
-    return ResponseEntity.ok(weatherForecastService.getCityWeather(cityName, days));
+    return weatherForecastService.getCityWeather(cityName, days)
+      .map(ResponseEntity::ok)
+      .orElse(new ResponseEntity<>(NOT_FOUND));
   }
 }

@@ -11,7 +11,8 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(JMockit.class)
 public class WeatherForecastTest {
@@ -37,8 +38,8 @@ public class WeatherForecastTest {
 				result = Optional.of("Raining");
 			}
 		};
-		String result = tested.getCityWeather("Madrid", LocalDate.now().plusDays(1));
-		assertEquals("Raining", result);
+		Optional<String> result = tested.getCityWeather("Madrid", LocalDate.now().plusDays(1));
+		assertEquals("Raining", result.get());
 	}
 
 	@Test
@@ -49,8 +50,8 @@ public class WeatherForecastTest {
 				result = Optional.of(123);
 			}
 		};
-		String result = tested.getCityWeather("Madrid", LocalDate.now().plusDays(1));
-		assertEquals("", result);
+		Optional<String> result = tested.getCityWeather("Madrid", LocalDate.now().plusDays(1));
+		assertFalse(result.isPresent());
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class WeatherForecastTest {
 				result = Optional.of("Nublado");
 			}
 		};
-		String result = tested.getCityWeather("Madrid", null);
-		assertNotEquals("", result);
+		Optional<String> result = tested.getCityWeather("Madrid", null);
+		assertTrue(result.isPresent());
 	}
 }

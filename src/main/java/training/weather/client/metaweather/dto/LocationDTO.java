@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class LocationDTO {
-  private int woeid;
+public final class LocationDTO {
+  private final int woeid;
 
   @JsonCreator
   public LocationDTO(
