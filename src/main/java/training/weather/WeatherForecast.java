@@ -54,6 +54,6 @@ public class WeatherForecast {
 	}
 
 	protected boolean isBefore(LocalDate datetime) {
-		return datetime.isBefore(LocalDate.now().plusDays(6));
+		return datetime.isBefore(LocalDate.now().plusDays(7));
 	}
 }
