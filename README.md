@@ -1,5 +1,6 @@
 # Como ejecutar el código
-El codigo se puede probar desde swagger en local con la url: http://localhost:8080/swagger-ui.html
+Se puede probar desde la url de un balanceador de AWS que preparé para la demo: http://webs-load-balancer-228584118.eu-west-3.elb.amazonaws.com/swagger-ui.htm
+El codigo tambien se puede probar desde swagger en local con la url: http://localhost:8080/swagger-ui.html
 
 # Explicación
 1. Empiezo extrayendo la condición before para poder establecer los tests apropiados (casos límite, en este caso dias 6 y 7) y poder refactorizar sin miedo a romper algo que funcionase antes de refactorizar.
