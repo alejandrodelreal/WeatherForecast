@@ -66,7 +66,8 @@ public class WeatherForecastTest {
 				result = Optional.of("Nublado");
 			}
 		};
-		Optional<String> result = tested.getCityWeather("Madrid", null);
+		LocalDate ld = null;
+		Optional<String> result = tested.getCityWeather("Madrid", ld);
 		assertTrue(result.isPresent());
 	}
 }

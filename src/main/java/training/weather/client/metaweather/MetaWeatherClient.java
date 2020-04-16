@@ -2,6 +2,7 @@ package training.weather.client.metaweather;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.stereotype.Component;
 import training.weather.client.GetClient;
 import training.weather.client.JSonConvertible;
 import training.weather.client.metaweather.dto.ConsolidatedLocationDTO;
@@ -10,6 +11,7 @@ import training.weather.client.metaweather.dto.LocationDTO;
 import java.io.IOException;
 import java.util.List;
 
+@Component("MetaWeatherClient")
 public class MetaWeatherClient implements JSonConvertible, GetClient {
   private static final String META_WEATHER_BASE_URL = "https://www.metaweather.com/api/location/";
   private static final String SEARCH_QUERY_URL = META_WEATHER_BASE_URL + "search/?query=";

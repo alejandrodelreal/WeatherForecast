@@ -1,17 +1,22 @@
 package training.weather.service;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@Service
 public class WeatherForecastService {
-  private DateService dateService = new DateService();
-  private WeatherService weatherService = new WeatherService();
+  private DateService dateService;
+  private WeatherService weatherService;
+
+  @Autowired
+  public WeatherForecastService(DateService dateService, WeatherService weatherService) {
+    this.dateService = dateService;
+    this.weatherService = weatherService;
+  }
 
   public Optional<String> getCityWeather(@NonNull String city, @NonNull Integer days) {
     return getCityWeather(city, LocalDate.now().plusDays(days));

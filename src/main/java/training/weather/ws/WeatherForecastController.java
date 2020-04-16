@@ -27,8 +27,8 @@ public class WeatherForecastController {
   private WeatherForecastService weatherForecastService;
 
   @Autowired
-  public WeatherForecastController() {
-    weatherForecastService = new WeatherForecastService();
+  public WeatherForecastController(WeatherForecastService weatherForecastService) {
+    this.weatherForecastService = weatherForecastService;
   }
 
   @ApiOperation(tags = {"WeatherForecast"}, value = "getCityWeather", notes = "Returns the forecasted weather of a city", response = String.class)
