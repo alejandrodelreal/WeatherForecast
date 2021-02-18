@@ -14,7 +14,7 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
-		<jackson.version>2.10.3</jackson.version>
+		<jackson.version>2.12.1</jackson.version>
 		<lombok.version>1.18.12</lombok.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
 		<apache-utils.version>4.0</apache-utils.version>
